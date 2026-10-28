@@ -1,73 +1,182 @@
-import {test,expect} from '@playwright/test';
-test('catálogo, filtros e consulta pelo WhatsApp',async({page})=>{
- await page.goto('/');
- await expect(page).toHaveTitle(/Doce Pé Peknin/);
- await expect(page.locator('.product:visible')).toHaveCount(4);
- await page.getByRole('button',{name:'Sandálias',exact:true}).click();
- await expect(page.locator('.product:visible')).toHaveCount(1);
- await expect(page.locator('.product:visible h3')).toHaveText('Sandalinha Jardim');
- await page.getByRole('button',{name:'Adicionar Sandalinha Jardim à sacola',exact:true}).click();
- await page.getByRole('button',{name:'Abrir sacola'}).click();
- await expect(page.getByRole('dialog')).toBeVisible();
- const order=page.getByRole('link',{name:'Consultar pelo WhatsApp'});
- await expect(order).toHaveAttribute('href',/^https:\/\/wa.me\/5511942756602\?text=/);
- expect(decodeURIComponent((await order.getAttribute('href'))!)).toContain('Sandalinha Jardim');
- await page.getByRole('button',{name:'Remover Sandalinha Jardim'}).click();
- await expect(order).toBeHidden();
- await page.keyboard.press('Escape');
- await expect(page.getByRole('dialog')).toBeHidden();
- expect(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
-});
-test('links de contato e teclado',async({page})=>{
- await page.goto('/');
- await page.keyboard.press('Tab');
- await expect(page.getByRole('link',{name:'Pular para o catálogo'})).toBeFocused();
- await page.getByRole('link',{name:'Quero ver os modelos'}).click();
- await expect(page).toHaveURL(/#colecao$/);
- await expect(page.getByRole('link',{name:'Chamar no WhatsApp'})).toHaveAttribute('href',/^https:\/\/wa.me\/5511942756602/);
- await expect(page.getByRole('link',{name:'(11) 94275-6602',exact:true})).toHaveAttribute('href','tel:+5511942756602');
+import { test, expect, type Page } from '@playwright/test';
+import products from '../public/catalogo/products.json' with { type: 'json' };
+
+const categories = [...new Set(products.map(product => product.category))];
+const firstProduct = products[0]!;
+const sandal = products.find(product => product.category === 'Sandálias baby')!;
+
+function card(page: Page, id: string) {
+  return page.locator(`.product:has([data-id="${id}"])`);
+}
+
+function orderMessage(href: string | null) {
+  expect(href).not.toBeNull();
+  const url = new URL(href!);
+  expect(url.origin).toBe('https://wa.me');
+  expect(url.pathname).toBe('/5511942756602');
+  return url.searchParams.get('text') || '';
+}
+
+test('catálogo real, filtros e consulta de referência pelo WhatsApp', async ({ page }) => {
+  await page.goto('/');
+  await expect(page).toHaveTitle(/Doce Pé/);
+  await expect(page.locator('.product:visible')).toHaveCount(products.length);
+
+  for (const category of categories) {
+    const filter = page.locator(`.filter[data-category="${category}"]`);
+    await filter.click();
+    await expect(filter).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('.product:visible')).toHaveCount(
+      products.filter(product => product.category === category).length,
+    );
+  }
+
+  await page.locator('.filter[data-category="Sandálias baby"]').click();
+  await expect(card(page, sandal.id)).toBeVisible();
+  await card(page, sandal.id).locator(`[data-id="${sandal.id}"]`).click();
+  await page.getByRole('button', { name: 'Abrir sacola', exact: true }).click();
+
+  const bag = page.locator('#bag-dialog');
+  await expect(bag).toBeVisible();
+  const order = bag.locator('#send-order');
+  await expect(order).toBeVisible();
+  const message = orderMessage(await order.getAttribute('href'));
+  expect(message).toContain(sandal.reference);
+  expect(message).toContain(sandal.color);
+  expect(message).toContain(sandal.name);
+
+  await bag.getByRole('button', { name: `Remover ${sandal.name}`, exact: true }).click();
+  await expect(order).toBeHidden();
+  await expect(bag.locator('#empty-bag')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(bag).toBeHidden();
+  await expect(page.getByRole('button', { name: 'Abrir sacola', exact: true })).toHaveAttribute('aria-expanded', 'false');
 });
 
-test('detalhes do modelo e sacola após recarregar', async ({page}) => {
+test('detalhes do catálogo, quantidades e sacola preservada após recarga', async ({ page }) => {
   await page.goto('/');
-  await page.getByRole('button', {name:'Ver detalhes de Tênis Nuvem', exact:true}).click();
-  const detail = page.getByRole('dialog', {name:'Tênis Nuvem', exact:true});
+  await card(page, firstProduct.id).locator('[data-view]').first().click();
+  const detail = page.locator('#product-dialog');
   await expect(detail).toBeVisible();
-  await expect(detail).toContainText('Modelo demonstrativo');
-  await detail.getByRole('button', {name:'Adicionar à sacola'}).click();
+  await expect(detail.locator('#detail-name')).toHaveText(firstProduct.name);
+  await expect(detail.locator('#detail-reference')).toContainText(firstProduct.reference);
+  await expect(detail.locator('#detail-sizes')).toContainText(firstProduct.sizes);
+  await detail.getByRole('button', { name: 'Adicionar à sacola' }).click();
   await expect(detail).toBeHidden();
+
   await page.reload();
   await expect(page.locator('#bag-count')).toHaveText('1');
-  await page.getByRole('button', {name:'Abrir sacola'}).click();
-  await page.getByRole('button', {name:'Aumentar quantidade de Tênis Nuvem',exact:true}).click();
-  await expect(page.getByLabel('Quantidade de Tênis Nuvem', {exact:true})).toHaveText('2');
-  const href = await page.getByRole('link', {name:'Consultar pelo WhatsApp'}).getAttribute('href');
-  expect(decodeURIComponent(href!)).toContain('2x Tênis Nuvem');
-  await page.getByRole('button', {name:'Diminuir quantidade de Tênis Nuvem',exact:true}).click();
+  await page.getByRole('button', { name: 'Abrir sacola', exact: true }).click();
+  const bag = page.locator('#bag-dialog');
+  await expect(bag).toContainText(firstProduct.name);
+  await bag.getByRole('button', { name: `Aumentar quantidade de ${firstProduct.name}`, exact: true }).click();
+  await expect(bag.getByLabel(`Quantidade de ${firstProduct.name}`, { exact: true })).toHaveText('2');
+  await expect(page.locator('#bag-count')).toHaveText('2');
+  const message = orderMessage(await bag.locator('#send-order').getAttribute('href'));
+  expect(message).toContain('2x');
+  expect(message).toContain(firstProduct.reference);
+  expect(message).toContain(firstProduct.color);
+
+  await bag.getByRole('button', { name: `Diminuir quantidade de ${firstProduct.name}`, exact: true }).click();
   await expect(page.locator('#bag-count')).toHaveText('1');
 });
 
-test('categorias, perguntas e ausência de dependências externas', async ({page}) => {
+test('busca por referência, combinação com categoria e estado sem resultados', async ({ page }) => {
+  await page.goto('/');
+  const search = page.getByRole('searchbox', { name: 'Buscar no catálogo', exact: true });
+  await search.fill(firstProduct.reference);
+  await expect(page.locator('.product:visible')).toHaveCount(1);
+  await expect(card(page, firstProduct.id)).toBeVisible();
+
+  const otherCategory = categories.find(category => category !== firstProduct.category)!;
+  await page.locator(`.filter[data-category="${otherCategory}"]`).click();
+  await expect(page.locator('.product:visible')).toHaveCount(0);
+  await expect(page.locator('#no-results')).toBeVisible();
+
+  await page.locator(`.filter[data-category="${firstProduct.category}"]`).click();
+  await expect(page.locator('.product:visible')).toHaveCount(1);
+  await expect(page.locator('#no-results')).toBeHidden();
+  await search.fill('referencia-inexistente-0000');
+  await expect(page.locator('.product:visible')).toHaveCount(0);
+  await expect(page.locator('#no-results')).toBeVisible();
+
+  await search.fill('');
+  await expect(page.locator('.product:visible')).toHaveCount(
+    products.filter(product => product.category === firstProduct.category).length,
+  );
+  await page.locator('.filter[data-category="Todos"]').click();
+  await expect(page.locator('.product:visible')).toHaveCount(products.length);
+  await expect(page.locator('#no-results')).toBeHidden();
+});
+
+test('navegação por teclado e links do contato fornecido', async ({ page }) => {
+  await page.goto('/');
+  await page.keyboard.press('Tab');
+  await expect(page.getByRole('link', { name: 'Pular para o catálogo', exact: true })).toBeFocused();
+  await page.getByRole('link', { name: 'Ver coleção', exact: true }).click();
+  await expect(page).toHaveURL(/#colecao$/);
+
+  const filter = page.locator(`.filter[data-category="${firstProduct.category}"]`);
+  await filter.focus();
+  await page.keyboard.press('Enter');
+  await expect(filter).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('.product:visible')).toHaveCount(
+    products.filter(product => product.category === firstProduct.category).length,
+  );
+
+  await expect(page.locator('.header-contact')).toHaveAccessibleName(/\S/);
+  const whatsappLinks = page.locator('a[href^="https://wa.me/"]');
+  expect(await whatsappLinks.count()).toBeGreaterThan(0);
+  for (const link of await whatsappLinks.all()) {
+    orderMessage(await link.getAttribute('href'));
+  }
+  await expect(page.locator('a[href="tel:+5511942756602"]:visible').first()).toBeVisible();
+
+  const toggle = page.getByRole('button', { name: 'Abrir sacola', exact: true });
+  await toggle.focus();
+  await page.keyboard.press('Enter');
+  await expect(page.locator('#bag-dialog')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#bag-dialog')).toBeHidden();
+  await expect(toggle).toBeFocused();
+});
+
+test('fotos e fontes locais carregam, sem erros e sem rolagem horizontal no celular', async ({ page }) => {
   const remoteRequests: string[] = [];
+  const failedResponses: string[] = [];
   const errors: string[] = [];
   page.on('request', request => {
-    if (!new URL(request.url()).hostname.match(/^(localhost|127\.0\.0\.1)$/)) remoteRequests.push(request.url());
+    const url = new URL(request.url());
+    if (/^https?:$/.test(url.protocol) && !['localhost', '127.0.0.1'].includes(url.hostname)) {
+      remoteRequests.push(request.url());
+    }
+  });
+  page.on('response', response => {
+    if (response.status() >= 400) failedResponses.push(`${response.status()} ${response.url()}`);
   });
   page.on('pageerror', error => errors.push(error.message));
-  await page.goto('/');
-  await page.getByRole('link', {name:'Sapatilhas', exact:false}).click();
-  await expect(page.locator('.product:visible')).toHaveCount(1);
-  await expect(page.locator('.product:visible h3')).toHaveText('Sapatilha Flor');
-  await page.getByRole('button', {name:'Todos', exact:true}).click();
-  await expect(page.locator('.product:visible')).toHaveCount(4);
-  await page.locator('summary').filter({hasText:'Como faço para comprar?'}).click();
-  await expect(page.locator('details[open]')).toContainText('A compra é combinada por lá.');
-  const sheet = await page.locator('.hero-shoe').evaluate(async element => {
-    const src = getComputedStyle(element).backgroundImage.slice(5, -2);
-    const image = new Image(); image.src = src;
-    await image.decode(); return image.naturalWidth;
+  await page.goto('/', { waitUntil: 'networkidle' });
+
+  const images = await page.locator('img[src]:not([src=""])').evaluateAll(async elements => {
+    return Promise.all(elements.map(async element => {
+      const image = element as HTMLImageElement;
+      image.loading = 'eager';
+      try {
+        await image.decode();
+        return { src: image.getAttribute('src'), width: image.naturalWidth };
+      } catch {
+        return { src: image.getAttribute('src'), width: 0 };
+      }
+    }));
   });
-  expect(sheet).toBeGreaterThan(1000);
+  expect(images.length).toBeGreaterThanOrEqual(products.length);
+  expect(images.filter(image => image.width === 0)).toEqual([]);
+  await page.evaluate(() => document.fonts.ready);
+  for (const width of [390, 320]) {
+    await page.setViewportSize({ width, height: 844 });
+    await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  }
   expect(remoteRequests).toEqual([]);
+  expect(failedResponses).toEqual([]);
   expect(errors).toEqual([]);
 });

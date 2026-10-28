@@ -1,11 +1,12 @@
 # Brief
-- Negócio confirmado: Doce Pé Peknin, fábrica de calçados infantis.
-- Contato confirmado: +55 11 94275-6602.
-- Público proposto: famílias buscando calçados para crianças.
-- Objetivo: apresentar a marca e levar consultas de compra ao WhatsApp.
-- Aceite: catálogo responsivo, filtros, detalhes, sacola com quantidades e remoção, mensagem de consulta com modelos selecionados, navegação por teclado, build estático e HTML único para abrir no navegador.
-- Direção visual revisada: loja de calçados infantis, azul e amarelo, tipografia Fraunces/DM Sans local, catálogo com imagens em destaque, texto direto e sem slogans abstratos.
-- Demonstração: nomes, cores e imagens são conceituais, explicitamente identificados; imagens sintéticas geradas por IA, sem representar produtos reais. Sem preços inventados.
-- Pendências: fotos e catálogo reais, numerações, preços, estoque, logotipo oficial, condições de entrega/troca e destino de hospedagem.
-- Fora do escopo: pagamento, estoque integrado, banco, admin e envio automático de mensagens.
-- Anexo Prompt Harness.txt: referência técnica adaptada ao pedido de loja infantil; publicação foi solicitada posteriormente pelo usuário; GitHub Pages foi preparado no repositório conectado. Código e build enviados; GitHub Pages ativado pelo usuário e publicação concluída com sucesso, confirmada pelo GitHub Actions.
+- Negócio informado pelo usuário: Doce Pé Peknin, fábrica de calçados infantis.
+- Contato que deve ser utilizado: +55 11 94275-6602.
+- Objetivo: mostrar os calçados e preparar consultas de compra pelo WhatsApp, sem checkout.
+- Referência visual e de produto fornecida: Doce Pé Julho 2026br.pdf, 22 páginas, coleção Primavera • Verão.
+- Direção visual: pêssego, rosa, turquesa, ondas e universo de doces do catálogo; logotipos reais; tipografia arredondada local; fotos originais dos calçados.
+- Doce Pé e Peknin aparecem como marcas distintas na capa. Os 16 modelos selecionados são das páginas identificadas como Doce Pé; o site os identifica assim.
+- Conteúdo verificável: referência, cor, categoria, numeração e foto de cada modelo, com página e origem em public/catalogo/provenance.json. Nomes descritivos usam categoria e código de modelo, sem inventar nomes comerciais.
+- Aceite: catálogo responsivo, filtros e busca por referência, detalhes, sacola persistente com quantidade e remoção, consultaWhatsApp com códigos exatos, teclado, assets locais, build raiz e /projetos/ e exportação HTML único.
+- Limites: catálogo datado de julho 2026 não estabelece estoque atual; preços, tamanhos disponíveis, pagamento e entrega precisam ser confirmados pela fábrica. Não publicar contracapa, contatos de terceiros ou PDF completo.
+- Hospedagem já autorizada: GitHub Pages em https://ospozoc.github.io/projetos/ . Código em main; arquivos gerados em gh-pages. Atualizações verificadas podem ser publicadas nesse mesmo destino.
+- Fora do escopo: banco, admin, pagamentos, automação de WhatsApp, contratação de serviços ou alteração de visibilidade.

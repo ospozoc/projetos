@@ -60,6 +60,16 @@ async function cssContents(text, parent) {
     return `url("${await dataUrl(url, parent)}")`;
   });
 }
+async function scriptContents(js, parent) {
+  // Product images are also assigned dynamically by the product dialog and bag.
+  // Embed only quoted local image paths; contact URLs and ordinary strings stay intact.
+  return replaceAsync(js, /(["'`])((?:\.{0,2}\/)[^"'`\r\n]*?\.(?:avif|webp|png|jpe?g|gif|svg|ico)(?:[?#][^"'`\r\n]*)?)\1/gi,
+    async (all, quote, url) => {
+      if (url.includes('${')) return all;
+      return `${quote}${await dataUrl(url, parent)}${quote}`;
+    });
+}
+
 function attr(tag, name) {
   return tag.match(new RegExp(`\\b${name}\\s*=\\s*["']([^"']+)["']`, 'i'))?.[1];
 }
@@ -82,15 +92,15 @@ html = await replaceAsync(html, /<link\b[^>]*>/gi, async tag => {
   return tag;
 });
 html = await replaceAsync(html, /<style\b([^>]*)>([\s\S]*?)<\/style>/gi, async (_all, attrs, contents) => `<style${attrs}>${await cssContents(contents, path.join(buildRoot, 'index.html'))}</style>`);
-html = await replaceAsync(html, /<script\b([^>]*)>([\s\S]*?)<\/script>/gi, async (all, attrs, _contents) => {
+html = await replaceAsync(html, /<script\b([^>]*)>([\s\S]*?)<\/script>/gi, async (_all, attrs, contents) => {
   const src = attr(attrs, 'src');
-  if (!src) return all;
-  const file = await localFile(src);
-  const js = await readFile(file, 'utf8');
-  if (/\b(?:import|export)\s*(?:[^;]*?from\s*)?["']|\bimport\s*\(/.test(js)) {
+  const file = src ? await localFile(src) : path.join(buildRoot, 'index.html');
+  const js = src ? await readFile(file, 'utf8') : contents;
+  if (src && /\b(?:import|export)\s*(?:[^;]*?from\s*)?["']|\bimport\s*\(/.test(js)) {
     throw new Error('Script com imports exige um bundle único antes da exportação: ' + src);
   }
-  return `<script${attrs.replace(/\s*src\s*=\s*["'][^"']+["']/i, '')}>${js.replace(/<\/script/gi, '<\\/script')}</script>`;
+  const portableJs = await scriptContents(js, file);
+  return `<script${attrs.replace(/\s*src\s*=\s*["'][^"']+["']/i, '')}>${portableJs.replace(/<\/script/gi, '<\\/script')}</script>`;
 });
 html = await replaceAsync(html, /<(?:img|source|video|audio|input)\b[^>]*>/gi, async tag => {
   tag = await replaceAsync(tag, /\b(src|poster)\s*=\s*(["'])(.*?)\2/gi, async (_all, name, quote, value) => `${name}=${quote}${await dataUrl(value)}${quote}`);

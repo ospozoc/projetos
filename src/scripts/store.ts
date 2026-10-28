@@ -1,7 +1,7 @@
-import { products, whatsapp } from '../data/products';
+import { products, whatsapp, assetPath } from '../data/products';
 
 type Selection = { id: string; quantity: number };
-const storageKey = 'doce-pe-peknin-sacola-v1';
+const storageKey = 'doce-pe-peknin-sacola-v2';
 const selection = new Map<string, number>();
 const bag = document.querySelector<HTMLDialogElement>('#bag-dialog')!;
 const detail = document.querySelector<HTMLDialogElement>('#product-dialog')!;
@@ -54,12 +54,12 @@ function renderBag() {
   for (const [id, quantity] of selection) {
     const product = products.find(item => item.id === id)!;
     total += quantity;
-    orderItems.push(`${quantity}x ${product.name} (${product.color})`);
+    orderItems.push(`${quantity}x ${product.name} — Ref. ${product.reference} — ${product.color} — numeração do catálogo ${product.sizes}`);
     const item = document.createElement('li');
-    const image = document.createElement('span');
-    image.className = `shoe-image bag-thumb shoe-${id}`;
-    image.setAttribute('role', 'img');
-    image.setAttribute('aria-label', `Imagem ilustrativa de ${product.name}`);
+    const image = document.createElement('img');
+    image.className = 'bag-thumb';
+    image.src = assetPath(product.image);
+    image.alt = `${product.name}, ${product.color}`;
     const content = document.createElement('div');
     content.className = 'bag-item-copy';
     const name = document.createElement('span');
@@ -67,7 +67,7 @@ function renderBag() {
     name.textContent = product.name;
     const color = document.createElement('span');
     color.className = 'bag-item-color';
-    color.textContent = product.color;
+    color.textContent = `Ref. ${product.reference} · ${product.color}`;
     const controls = document.createElement('div');
     controls.className = 'bag-item-controls';
     const quantities = document.createElement('div');
@@ -91,7 +91,7 @@ function renderBag() {
   document.querySelector('#bag-count')!.textContent = String(total);
   document.querySelector<HTMLElement>('#empty-bag')!.hidden = total > 0;
   sendOrder.hidden = total === 0;
-  sendOrder.href = whatsapp(`Olá! Vim pelo site da Doce Pé Peknin. Gostaria de consultar estas referências do catálogo demonstrativo:\n\n${orderItems.join('\n')}\n\nQuais modelos reais, tamanhos e preços estão disponíveis?`);
+  sendOrder.href = whatsapp(`Olá! Vim pelo site da Doce Pé Peknin. Gostaria de consultar estes modelos da coleção Primavera • Verão:\n\n${orderItems.join('\n')}\n\nPoderiam confirmar os preços e os tamanhos disponíveis?`);
 }
 
 function updateQuantity(id: string, quantity: number) {
@@ -124,7 +124,12 @@ function addProduct(id: string) {
   toastTimer = setTimeout(() => toast.classList.remove('show'), 4500);
 }
 
+let activeCategory = 'Todos';
+const searchInput = document.querySelector<HTMLInputElement>('#catalog-search')!;
+const normalize = (value: string) => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+
 function filterBy(category: string) {
+  activeCategory = category;
   document.querySelectorAll<HTMLButtonElement>('.filter').forEach(element => {
     const active = element.dataset.category === category;
     element.classList.toggle('active', active);
@@ -132,10 +137,15 @@ function filterBy(category: string) {
   });
   let count = 0;
   document.querySelectorAll<HTMLElement>('.product').forEach(card => {
-    card.hidden = category !== 'Todos' && card.dataset.category !== category;
+    const product = products.find(item => item.id === card.querySelector<HTMLElement>('[data-id]')?.dataset.id)!;
+    const matchesCategory = category === 'Todos' || card.dataset.category === category;
+    const haystack = normalize(`${product.name} ${product.reference} ${product.color} ${product.category}`);
+    const matchesSearch = haystack.includes(normalize(searchInput.value));
+    card.hidden = !matchesCategory || !matchesSearch;
     if (!card.hidden) count++;
   });
   document.querySelector('#result-count')!.textContent = String(count);
+  document.querySelector<HTMLElement>('#no-results')!.hidden = count !== 0;
 }
 
 function viewProduct(id: string) {
@@ -145,16 +155,18 @@ function viewProduct(id: string) {
   document.querySelector('#detail-name')!.textContent = product.name;
   document.querySelector('#detail-category')!.textContent = product.category;
   document.querySelector('#detail-color')!.textContent = product.color;
-  const photo = document.querySelector<HTMLElement>('#detail-photo')!;
-  photo.className = `shoe-image shoe-${id}`;
-  photo.setAttribute('aria-label', `Imagem ilustrativa de ${product.name}`);
+  document.querySelector('#detail-reference')!.textContent = product.reference;
+  document.querySelector('#detail-sizes')!.textContent = product.sizes;
+  const photo = document.querySelector<HTMLImageElement>('#detail-photo')!;
+  photo.src = assetPath(product.image);
+  photo.alt = `${product.name}, ${product.color}`;
   if (!detail.open) detail.showModal();
 }
 
 document.querySelectorAll<HTMLButtonElement>('[data-id]').forEach(element => element.addEventListener('click', () => addProduct(element.dataset.id!)));
 document.querySelectorAll<HTMLButtonElement>('[data-view]').forEach(element => element.addEventListener('click', () => viewProduct(element.dataset.view!)));
 document.querySelectorAll<HTMLButtonElement>('.filter').forEach(element => element.addEventListener('click', () => filterBy(element.dataset.category!)));
-document.querySelectorAll<HTMLAnchorElement>('[data-category-link]').forEach(element => element.addEventListener('click', () => filterBy(element.dataset.categoryLink!)));
+document.querySelectorAll<HTMLAnchorElement>('[data-category-link]').forEach(element => element.addEventListener('click', () => { searchInput.value = ''; filterBy(element.dataset.categoryLink!); }));
 document.querySelector('#detail-add')!.addEventListener('click', () => { addProduct(detailId); detail.close(); });
 document.querySelector('#detail-open-bag')!.addEventListener('click', openBag);
 bagToggle.addEventListener('click', openBag);
@@ -169,3 +181,6 @@ for (const dialog of [bag, detail]) {
   });
 }
 renderBag();
+
+searchInput.addEventListener('input', () => filterBy(activeCategory));
+document.querySelector('#clear-filters')!.addEventListener('click', () => { searchInput.value = ''; filterBy('Todos'); searchInput.focus(); });

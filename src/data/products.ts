@@ -1,9 +1,20 @@
+import catalogue from '../../public/catalogo/products.json';
+
+export interface Product {
+  id: string;
+  reference: string;
+  name: string;
+  category: string;
+  color: string;
+  sizes: string;
+  image: string;
+  page: number;
+  brand: string;
+}
+
+/** Photos and specifications taken from the supplied July 2026 catalogue. */
+export const products: Product[] = catalogue;
+export const categories = ['Todos', 'Sapatinhos baby', 'Sapatilhas', 'Sandálias baby', 'Sandálias fashion'];
 export const phone = '5511942756602';
-/** Referências demonstrativas: substituir pelo catálogo aprovado da fábrica. */
-export const products = [
-  { id: 'nuvem', name: 'Tênis Nuvem', category: 'Tênis', color: 'Rosa & creme', palette: 'pink' },
-  { id: 'jardim', name: 'Sandalinha Jardim', category: 'Sandálias', color: 'Verde sálvia', palette: 'sage' },
-  { id: 'sol', name: 'Tênis Raio de Sol', category: 'Tênis', color: 'Amarelo & creme', palette: 'yellow' },
-  { id: 'flor', name: 'Sapatilha Flor', category: 'Sapatilhas', color: 'Rosa', palette: 'rose' },
-];
 export const whatsapp = (text: string) => `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+export const assetPath = (path: string) => /^(data:|blob:)/.test(path) ? path : `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${path.replace(/^\//, '')}`;

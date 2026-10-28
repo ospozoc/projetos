@@ -8,4 +8,4 @@
 - Demonstração: nomes, cores e imagens são conceituais, explicitamente identificados; imagens sintéticas geradas por IA, sem representar produtos reais. Sem preços inventados.
 - Pendências: fotos e catálogo reais, numerações, preços, estoque, logotipo oficial, condições de entrega/troca e destino de hospedagem.
 - Fora do escopo: pagamento, estoque integrado, banco, admin e envio automático de mensagens.
-- Anexo Prompt Harness.txt: referência técnica adaptada ao pedido de loja infantil; publicação foi solicitada posteriormente pelo usuário; GitHub Pages foi preparado no repositório conectado. Código e build enviados; ativação do Pages pendente por bloqueio de rede da API.
+- Anexo Prompt Harness.txt: referência técnica adaptada ao pedido de loja infantil; publicação foi solicitada posteriormente pelo usuário; GitHub Pages foi preparado no repositório conectado. Código e build enviados; GitHub Pages ativado pelo usuário e publicação concluída com sucesso, confirmada pelo GitHub Actions.

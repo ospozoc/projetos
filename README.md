@@ -57,3 +57,6 @@ Veja AGENTS.md e BRIEF.md. Não é necessário Neon ou Resend nesta fase.
 
 ## Resultado desta revisão
 Verificado: 8 testes Playwright passaram nos tamanhos desktop e celular; checagem de tipos sem erros, avisos ou hints; build estático concluído. A cópia HTML foi testada no Chromium com filtros, detalhes, quantidades e consulta pelo WhatsApp, sem requests HTTP para carregar a interface. Publicação externa e fotos reais continuam pendentes.
+
+## Envio ao repositório
+Código-fonte enviado à branch `main` e página estática enviada à branch `gh-pages`; ambos confirmados com `git ls-remote`. O artefato `gh-pages` inclui `.nojekyll`. Ativação do GitHub Pages pendente: a API é bloqueada pela rede do ambiente. Não foi possível confirmar a publicação no endereço público. Nenhum plano foi contratado, e a visibilidade do repositório foi preservada.

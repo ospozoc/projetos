@@ -1,0 +1,11 @@
+# Brief
+- Negócio confirmado: Doce Pé Peknin, fábrica de calçados infantis.
+- Contato confirmado: +55 11 94275-6602.
+- Público proposto: famílias buscando calçados para crianças.
+- Objetivo: apresentar a marca e levar consultas de compra ao WhatsApp.
+- Aceite: catálogo responsivo, filtros, detalhes, sacola com quantidades e remoção, mensagem de consulta com modelos selecionados, navegação por teclado, build estático e HTML único para abrir no navegador.
+- Direção visual revisada: loja de calçados infantis, azul e amarelo, tipografia Fraunces/DM Sans local, catálogo com imagens em destaque, texto direto e sem slogans abstratos.
+- Demonstração: nomes, cores e imagens são conceituais, explicitamente identificados; imagens sintéticas geradas por IA, sem representar produtos reais. Sem preços inventados.
+- Pendências: fotos e catálogo reais, numerações, preços, estoque, logotipo oficial, condições de entrega/troca e destino de hospedagem.
+- Fora do escopo: pagamento, estoque integrado, banco, admin e envio automático de mensagens.
+- Anexo Prompt Harness.txt: referência técnica adaptada ao pedido de loja infantil; publicação e envio remoto não foram autorizados por um destino específico.

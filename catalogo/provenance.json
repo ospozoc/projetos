@@ -1,0 +1,364 @@
+{
+  "source": "Doce_Pé_Julho 2026br.pdf",
+  "source_pages": 22,
+  "source_period": "Julho 2026",
+  "collection_label": "Primavera • Verão",
+  "product_photo_policy": "Only original embedded images extracted, without retouching.",
+  "logo_note": "Doce Pé has a separate embedded image; Peknin is a contextual clip from the front cover, with its original background.",
+  "contact_note": "Back-cover contact details were not exported. Use the phone supplied by the user, +55 11 94275-6602.",
+  "availability_note": "Catalogue sizes and colors do not establish current availability. No prices are present in this selection.",
+  "products": [
+    {
+      "reference": "152-22",
+      "page": 3,
+      "xref": 16,
+      "image_bbox": [
+        233.13,
+        126.41,
+        395.29,
+        270.33
+      ],
+      "caption_bbox": [
+        237.9,
+        243.46,
+        266.58,
+        254.31
+      ],
+      "dimensions": [
+        338,
+        300
+      ],
+      "extraction": "original embedded image bytes"
+    },
+    {
+      "reference": "153-464",
+      "page": 3,
+      "xref": 14,
+      "image_bbox": [
+        400.31,
+        457.53,
+        562.43,
+        586.59
+      ],
+      "caption_bbox": [
+        410.74,
+        568.2,
+        444.83,
+        579.06
+      ],
+      "dimensions": [
+        338,
+        269
+      ],
+      "extraction": "original embedded image bytes"
+    },
+    {
+      "reference": "154-09",
+      "page": 4,
+      "xref": 30,
+      "image_bbox": [
+        233.36,
+        133.01,
+        395.32,
+        262.91
+      ],
+      "caption_bbox": [
+        237.9,
+        243.46,
+        267.86,
+        254.31
+      ],
+      "dimensions": [
+        338,
+        271
+      ],
+      "extraction": "original embedded image bytes"
+    },
+    {
+      "reference": "157-257",
+      "page": 5,
+      "xref": 39,
+      "image_bbox": [
+        233.06,
+        613.64,
+        395.25,
+        745.84
+      ],
+      "caption_bbox": [
+        243.49,
+        726.51,
+        276.06,
+        737.37
+      ],
+      "dimensions": [
+        338,
+        276
+      ],
+      "extraction": "original embedded image bytes"
+    },
+    {
+      "reference": "4290-22",
+      "page": 6,
+      "xref": 58,
+      "image_bbox": [
+        233.26,
+        128.94,
+        395.72,
+        269.41
+      ],
+      "caption_bbox": [
+        235.07,
+        243.44,
+        270.95,
+        254.3
+      ],
+      "dimensions": [
+        339,
+        293
+      ],
+      "extraction": "original embedded image bytes"
+    },
+    {
+      "reference": "4293-01",
+      "page": 7,
+      "xref": 62,
+      "image_bbox": [
+        60.43,
+        462.57,
+        222.95,
+        583.06
+      ],
+      "caption_bbox": [
+        70.87,
+        568.19,
+        105.57,
+        579.05
+      ],
+      "dimensions": [
+        339,
+        251
+      ],
+      "extraction": "original embedded image bytes"
+    },
+    {
+      "reference": "4295-390",
+      "page": 8,
+      "xref": 83,
+      "image_bbox": [
+        400.82,
+        620.89,
+        562.48,
+        737.88
+      ],
+      "caption_bbox": [
+        410.74,
+        726.51,
+        451.51,
+        737.36
+      ],
+      "dimensions": [
+        337,
+        244
+      ],
+      "extraction": "original embedded image bytes"
+    },
+    {
+      "reference": "8151-22",
+      "page": 9,
+      "xref": 98,
+      "image_bbox": [
+        233.59,
+        137.22,
+        395.24,
+        262.27
+      ],
+      "caption_bbox": [
+        237.89,
+        243.45,
+        270.62,
+        254.31
+      ],
+      "dimensions": [
+        337,
+        261
+      ],
+      "extraction": "original embedded image bytes"
+    },
+    {
+      "reference": "1085-20",
+      "page": 12,
+      "xref": 136,
+      "image_bbox": [
+        126.06,
+        131.28,
+        288.44,
+        269.23
+      ],
+      "caption_bbox": [
+        122.6,
+        244.24,
+        158.03,
+        255.1
+      ],
+      "dimensions": [
+        339,
+        288
+      ],
+      "extraction": "original embedded image bytes"
+    },
+    {
+      "reference": "1086-257",
+      "page": 12,
+      "xref": 131,
+      "image_bbox": [
+        233.5,
+        614.56,
+        395.15,
+        743.4
+      ],
+      "caption_bbox": [
+        237.82,
+        726.5,
+        277.31,
+        737.35
+      ],
+      "dimensions": [
+        337,
+        269
+      ],
+      "extraction": "original embedded image bytes"
+    },
+    {
+      "reference": "1088-09",
+      "page": 13,
+      "xref": 148,
+      "image_bbox": [
+        234.1,
+        451.0,
+        394.58,
+        591.04
+      ],
+      "caption_bbox": [
+        240.66,
+        573.85,
+        276.91,
+        584.71
+      ],
+      "dimensions": [
+        335,
+        292
+      ],
+      "extraction": "original embedded image bytes"
+    },
+    {
+      "reference": "1090-390",
+      "page": 14,
+      "xref": 160,
+      "image_bbox": [
+        400.32,
+        611.37,
+        562.94,
+        748.0
+      ],
+      "caption_bbox": [
+        405.07,
+        729.33,
+        445.95,
+        740.19
+      ],
+      "dimensions": [
+        339,
+        285
+      ],
+      "extraction": "original embedded image bytes"
+    },
+    {
+      "reference": "9075-464",
+      "page": 15,
+      "xref": 171,
+      "image_bbox": [
+        294.25,
+        459.21,
+        456.85,
+        586.31
+      ],
+      "caption_bbox": [
+        290.55,
+        563.84,
+        331.38,
+        574.7
+      ],
+      "dimensions": [
+        339,
+        265
+      ],
+      "extraction": "original embedded image bytes"
+    },
+    {
+      "reference": "9076-257",
+      "page": 16,
+      "xref": 182,
+      "image_bbox": [
+        167.98,
+        283.11,
+        331.05,
+        418.4
+      ],
+      "caption_bbox": [
+        161.36,
+        392.35,
+        201.43,
+        403.2
+      ],
+      "dimensions": [
+        340,
+        282
+      ],
+      "extraction": "original embedded image bytes"
+    },
+    {
+      "reference": "9080-1105",
+      "page": 18,
+      "xref": 199,
+      "image_bbox": [
+        288.7,
+        136.35,
+        451.23,
+        264.91
+      ],
+      "caption_bbox": [
+        282.05,
+        252.74,
+        326.67,
+        263.6
+      ],
+      "dimensions": [
+        339,
+        268
+      ],
+      "extraction": "original embedded image bytes"
+    },
+    {
+      "reference": "26032-1123",
+      "page": 20,
+      "xref": 223,
+      "image_bbox": [
+        100.16,
+        292.53,
+        262.37,
+        408.44
+      ],
+      "caption_bbox": [
+        107.5,
+        400.85,
+        154.82,
+        411.71
+      ],
+      "dimensions": [
+        338,
+        242
+      ],
+      "extraction": "original embedded image bytes"
+    }
+  ]
+}

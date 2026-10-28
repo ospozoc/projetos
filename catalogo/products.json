@@ -1,0 +1,178 @@
+[
+  {
+    "id": "152-22",
+    "reference": "152-22",
+    "name": "Sapatinho baby 152",
+    "category": "Sapatinhos baby",
+    "color": "Verniz Rosa",
+    "sizes": "16 ao 22",
+    "image": "/catalogo/152-22.jpeg",
+    "page": 3,
+    "brand": "Doce Pé"
+  },
+  {
+    "id": "153-464",
+    "reference": "153-464",
+    "name": "Sapatinho baby 153",
+    "category": "Sapatinhos baby",
+    "color": "Verniz Marfim",
+    "sizes": "16 ao 22",
+    "image": "/catalogo/153-464.jpeg",
+    "page": 3,
+    "brand": "Doce Pé"
+  },
+  {
+    "id": "154-09",
+    "reference": "154-09",
+    "name": "Sapatinho baby 154",
+    "category": "Sapatinhos baby",
+    "color": "Rosa",
+    "sizes": "16 ao 22",
+    "image": "/catalogo/154-09.jpeg",
+    "page": 4,
+    "brand": "Doce Pé"
+  },
+  {
+    "id": "157-257",
+    "reference": "157-257",
+    "name": "Sapatinho baby 157",
+    "category": "Sapatinhos baby",
+    "color": "Dourado",
+    "sizes": "16 ao 22",
+    "image": "/catalogo/157-257.jpeg",
+    "page": 5,
+    "brand": "Doce Pé"
+  },
+  {
+    "id": "4290-22",
+    "reference": "4290-22",
+    "name": "Sapatilha 4290",
+    "category": "Sapatilhas",
+    "color": "Verniz Rosa",
+    "sizes": "20 ao 27",
+    "image": "/catalogo/4290-22.jpeg",
+    "page": 6,
+    "brand": "Doce Pé"
+  },
+  {
+    "id": "4293-01",
+    "reference": "4293-01",
+    "name": "Sapatilha 4293",
+    "category": "Sapatilhas",
+    "color": "Branco",
+    "sizes": "20 ao 27",
+    "image": "/catalogo/4293-01.jpeg",
+    "page": 7,
+    "brand": "Doce Pé"
+  },
+  {
+    "id": "4295-390",
+    "reference": "4295-390",
+    "name": "Sapatilha 4295",
+    "category": "Sapatilhas",
+    "color": "Nude",
+    "sizes": "20 ao 27",
+    "image": "/catalogo/4295-390.jpeg",
+    "page": 8,
+    "brand": "Doce Pé"
+  },
+  {
+    "id": "8151-22",
+    "reference": "8151-22",
+    "name": "Sapatilha 8151",
+    "category": "Sapatilhas",
+    "color": "Verniz Rosa",
+    "sizes": "28 ao 34",
+    "image": "/catalogo/8151-22.jpeg",
+    "page": 9,
+    "brand": "Doce Pé"
+  },
+  {
+    "id": "1085-20",
+    "reference": "1085-20",
+    "name": "Sandália baby 1085",
+    "category": "Sandálias baby",
+    "color": "Verniz Branco",
+    "sizes": "16 ao 22",
+    "image": "/catalogo/1085-20.jpeg",
+    "page": 12,
+    "brand": "Doce Pé"
+  },
+  {
+    "id": "1086-257",
+    "reference": "1086-257",
+    "name": "Sandália baby 1086",
+    "category": "Sandálias baby",
+    "color": "Dourado",
+    "sizes": "16 ao 22",
+    "image": "/catalogo/1086-257.jpeg",
+    "page": 12,
+    "brand": "Doce Pé"
+  },
+  {
+    "id": "1088-09",
+    "reference": "1088-09",
+    "name": "Sandália baby 1088",
+    "category": "Sandálias baby",
+    "color": "Rosa",
+    "sizes": "16 ao 22",
+    "image": "/catalogo/1088-09.jpeg",
+    "page": 13,
+    "brand": "Doce Pé"
+  },
+  {
+    "id": "1090-390",
+    "reference": "1090-390",
+    "name": "Sandália baby 1090",
+    "category": "Sandálias baby",
+    "color": "Nude",
+    "sizes": "16 ao 22",
+    "image": "/catalogo/1090-390.jpeg",
+    "page": 14,
+    "brand": "Doce Pé"
+  },
+  {
+    "id": "9075-464",
+    "reference": "9075-464",
+    "name": "Sandália fashion 9075",
+    "category": "Sandálias fashion",
+    "color": "Verniz Marfim",
+    "sizes": "20 ao 27",
+    "image": "/catalogo/9075-464.jpeg",
+    "page": 15,
+    "brand": "Doce Pé"
+  },
+  {
+    "id": "9076-257",
+    "reference": "9076-257",
+    "name": "Sandália fashion 9076",
+    "category": "Sandálias fashion",
+    "color": "Dourado",
+    "sizes": "20 ao 27",
+    "image": "/catalogo/9076-257.jpeg",
+    "page": 16,
+    "brand": "Doce Pé"
+  },
+  {
+    "id": "9080-1105",
+    "reference": "9080-1105",
+    "name": "Sandália fashion 9080",
+    "category": "Sandálias fashion",
+    "color": "Rosa Metalizado",
+    "sizes": "20 ao 27",
+    "image": "/catalogo/9080-1105.jpeg",
+    "page": 18,
+    "brand": "Doce Pé"
+  },
+  {
+    "id": "26032-1123",
+    "reference": "26032-1123",
+    "name": "Sandália fashion 26032",
+    "category": "Sandálias fashion",
+    "color": "Dourado Metalizado",
+    "sizes": "28 ao 34",
+    "image": "/catalogo/26032-1123.jpeg",
+    "page": 20,
+    "brand": "Doce Pé"
+  }
+]

@@ -68,3 +68,6 @@ Consulte AGENTS.md e BRIEF.md para os limites e as decisões do projeto.
 10 testes funcionais passaram nos tamanhos desktop e celular. Após ajustar o nome acessível do link de WhatsApp no cabeçalho mobile, os 2 testes de teclado/contato afetados passaram novamente. Checagem de tipos: zero erros, avisos e hints. Builds na raiz e em `/projetos/` concluídos.
 
 A cópia autossuficiente foi verificada com todos os 16 detalhes e suas fotos, 16 miniaturas na sacola, filtros, busca, quantidades e referências na mensagem, sem requisições HTTP ou erros de JavaScript. As versões web e portátil foram conferidas em 390 e 320 px, sem rolagem horizontal.
+
+## Publicação desta revisão
+Atualização do layout e catálogo enviada a `main` e `gh-pages`, com histórico preservado. O GitHub confirmou a publicação com sucesso na execução https://github.com/ospozoc/projetos/actions/runs/40756115014 . O endereço permanece https://ospozoc.github.io/projetos/ .
